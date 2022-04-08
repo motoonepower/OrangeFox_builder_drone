@@ -1,10 +1,10 @@
 #!/bin/bash
 MANIFEST="https://gitlab.com/OrangeFox/sync.git"
 OEM="motorola"
-DEVICE="pokerpatas"
-DT_LINK="https://github.com/KatoTempest/motorola_pokerpatas.git -b ofox"
+DEVICE="chef"
+DT_LINK="https://github.com/TeamWin/android_device_motorola_chef.git"
 DT_PATH=device/$OEM/$DEVICE
-
+EXTRA_CMD="git clone https://github.com/OrangeFoxRecovery/Avatar.git misc"
 
 echo " ===+++ Setting up Build Environment +++==="
 apt install openssh-server -y
@@ -13,8 +13,8 @@ apt install openssh-server -y
 
 echo " ===+++ Sync OrangeFox +++==="
 git clone $MANIFEST ~/FOX && cd ~/FOX
-./get_fox_10.sh ~/fox_0.0
-cd ~/fox_0.0
+./get_fox_10.sh ~/fox_10.0
+cd ~/fox_10.0
 git clone $DT_LINK $DT_PATH
 
 echo " ===+++ Running the Extra Command... +++==="
@@ -32,4 +32,4 @@ lunch omni_${DEVICE}-eng && mka recoveryimage
 cd out/target/product/$DEVICE
 
 curl -sL https://git.io/file-transfer | sh
-./transfer wet OrangeFox*.img
+./transfer wet OrangeFox*.zip
